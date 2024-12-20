@@ -15,7 +15,7 @@ function minimatch(file: string, pattern: string) {
 
 export function getMatchedGlobs(file: string, glob: (string | string[])[]) {
   const globs = (Array.isArray(glob) ? glob : [glob]).flat()
-  return globs.filter(glob => minimatch(file, glob)).flat()
+  return globs.filter(glob => !glob.startsWith('!')).filter(glob => minimatch(file, glob)).flat()
 }
 
 const META_KEYS = new Set(['name', 'index'])
